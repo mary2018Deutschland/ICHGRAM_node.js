@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import cors from "cors";
 import connectDB from "./config/db";
 import authRouter from "./routes/authRouter";
+import resetPasswordRouter from "./routes/PasswordResetRoutes";
 
 class AppServer {
   private app: Application;
@@ -29,6 +30,7 @@ class AppServer {
 
   private setRoutes(): void {
     this.app.use("/api/auth", authRouter);
+    this.app.use("/api", resetPasswordRouter);
   }
 
   public startServer(): void {
