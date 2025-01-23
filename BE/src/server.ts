@@ -4,6 +4,9 @@ import connectDB from "./config/db";
 import authRouter from "./routes/authRouter";
 import resetPasswordRouter from "./routes/PasswordResetRoutes";
 import postRouter from "./routes/postRouter";
+import userRouter from "./routes/userRouter";
+import avatarRouter from "./routes/avatarRouter";
+import commentRouter from "./routes/commentRouter";
 
 class AppServer {
   private app: Application;
@@ -33,6 +36,9 @@ class AppServer {
     this.app.use("/api/auth", authRouter);
     this.app.use("/api", resetPasswordRouter);
     this.app.use("/api/post", postRouter);
+    this.app.use("/api", userRouter);
+    this.app.use("/api", avatarRouter);
+    this.app.use("/api", commentRouter);
   }
 
   public startServer(): void {
