@@ -8,6 +8,7 @@ import userRouter from "./routes/userRouter";
 import avatarRouter from "./routes/avatarRouter";
 import commentRouter from "./routes/commentRouter";
 import followRouter from "./routes/followRouter";
+import "dotenv/config";
 
 class AppServer {
   private app: Application;
