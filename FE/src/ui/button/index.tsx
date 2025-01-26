@@ -1,6 +1,6 @@
-import { forwardRef, ButtonHTMLAttributes } from "react";
+import { forwardRef, ButtonHTMLAttributes } from 'react';
 
-type ButtonVariant = "primary" | "secondary" | "icon";
+type ButtonVariant = 'primary' | 'secondary' | 'icon';
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -11,8 +11,8 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, IButton>(
   (
     {
-      type = "button",
-      variant = "primary",
+      type = 'button',
+      variant = 'primary',
       children,
       onClick,
       icon,
@@ -23,13 +23,13 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
   ) => {
     const styles = {
       primary:
-        "bg-blue-500 hover:bg-blue-400 active:bg-blue-300 text-white rounded-xl px-4 py-2 sm:px-6 sm:py-3 sm:w-auto font-semibold",
-      secondary: "bg-transparent text-black text-sm sm:text-base p-2",
-      icon: "h-10 w-10 sm:h-12 sm:w-12 bg-green-500 flex items-center justify-center",
+        'bg-blue-500 hover:bg-blue-400 active:bg-blue-300 text-white rounded-xl px-4 py-2 sm:px-6 sm:py-3 sm:w-auto font-semibold',
+      secondary: 'bg-transparent text-black text-sm sm:text-base p-2',
+      icon: 'h-10 w-10 sm:h-12 sm:w-12 bg-green-500 flex items-center justify-center',
     };
 
     // Комбинируем стили с className, если он передан
-    const buttonClass = `${styles[variant]} ${className || ""}`;
+    const buttonClass = `${styles[variant]} ${className || ''}`;
 
     return (
       <button

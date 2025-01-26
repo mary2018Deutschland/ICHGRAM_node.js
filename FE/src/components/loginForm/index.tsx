@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/input";
 import Button from "../../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import inStackLogo from "../../assets/icons/logo-ichgram.svg";
+import Logo from "../../assets/icons/logo_ichgram.svg";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 interface ILoginFormData {
@@ -30,7 +30,7 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3333/api/auth/login",
+        `${import.meta.env.VITE_HOST_NAME}/api/auth/login`,
         {
           emailOrUsername, // Передаем только одно поле
           password,
@@ -51,7 +51,7 @@ const LoginForm = () => {
 
   return (
     <div className="w-[350px] h-[412px] bg-white border border-gray-300 flex flex-col items-center">
-      <img src={inStackLogo} alt="Logo" className="w-48 mt-6 mb-4" />
+      <img src={Logo} alt="Logo" className="w-48 mt-6 mb-4" />
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -95,7 +95,7 @@ const LoginForm = () => {
           {...register("password", {
             required: "Password is required",
             minLength: {
-              value: 6,
+              value: 8,
               message: "Password must be at least 6 characters",
             },
           })}

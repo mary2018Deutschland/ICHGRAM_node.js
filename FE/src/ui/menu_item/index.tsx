@@ -13,19 +13,19 @@ const MenuItem: FC<MenuItemP> = ({ icon, name, path, isMobile }) => {
     <NavLink
       to={path}
       className={`no-underline p-3 rounded-lg flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-all duration-300 ${
-        isMobile ? "text-gray-600" : "text-black"
+        isMobile ? 'text-gray-600' : 'text-black'
       }`}
       end
     >
       {({ isActive }) => (
         <div
           className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer hover:bg-gray-100 transition-all duration-300 ${
-            isActive ? "bg-gray-200 font-bold text-slate-950" : "text-gray-600"
+            isActive ? 'bg-gray-200 font-bold text-slate-950' : 'text-gray-600'
           }`}
         >
           <div
             className={`transform transition-all duration-300 ${
-              isActive ? "scale-110 text-slate-950" : ""
+              isActive ? 'scale-110 text-slate-950' : ''
             }`}
           >
             {icon}
@@ -36,8 +36,8 @@ const MenuItem: FC<MenuItemP> = ({ icon, name, path, isMobile }) => {
             <p
               className={`transition-all duration-300 ${
                 isActive
-                  ? "font-bold text-slate-800"
-                  : "font-normal text-gray-600"
+                  ? 'font-bold text-slate-800'
+                  : 'font-normal text-gray-600'
               }`}
             >
               {name}

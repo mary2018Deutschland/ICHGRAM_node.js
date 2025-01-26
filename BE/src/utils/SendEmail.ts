@@ -1,20 +1,16 @@
-import nodemailer from "nodemailer";
-import "dotenv/config";
+import nodemailer from 'nodemailer';
+import 'dotenv/config'
 export interface IEmailOptions {
   to: string;
   subject: string;
   text: string;
 }
-const email = process.env.EMAIL_USER || "user email";
-const pass = process.env.PASS_USER || "user pass";
+const email = process.env.EMAIL_USER || 'user email';
+const pass = process.env.PASS_USER || 'user pass';
 
-export const sendEmail = async (
-  { to, subject, text }: IEmailOptions,
-  p0: string,
-  p1: string
-) => {
+export const sendEmail = async ({ to, subject, text }: IEmailOptions, p0: string, p1: string) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
       user: email,
       pass: pass,

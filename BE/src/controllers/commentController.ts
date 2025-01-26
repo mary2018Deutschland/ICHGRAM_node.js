@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import Comment from "../models/Comment";
-import Post from "../models/Post";
-import { sendResponse } from "../utils/responseUtils";
-import { Types } from "mongoose"; // Импортируй Types из mongoose
+import { Request, Response } from 'express';
+import Comment from '../models/Comment';
+import Post from '../models/Post';
+import { sendResponse } from '../utils/responseUtils';
+import { Types } from 'mongoose'; // Импортируй Types из mongoose
 
 class CommentController {
   // Добавление комментария
@@ -14,7 +14,7 @@ class CommentController {
 
       const post = await Post.findById(postId);
       if (!post) {
-        return sendResponse(res, 404, { message: "Post not found" });
+        return sendResponse(res, 404, { message: 'Post not found' });
       }
 
       const comment = new Comment({ user: userId, post: postId, content });
@@ -25,11 +25,11 @@ class CommentController {
       await post.save();
 
       return sendResponse(res, 201, {
-        message: "Comment added successfully",
+        message: 'Comment added successfully',
         data: comment,
       });
     } catch (error) {
-      return sendResponse(res, 500, { message: "Error adding comment" });
+      return sendResponse(res, 500, { message: 'Error adding comment' });
     }
   }
 
@@ -42,12 +42,12 @@ class CommentController {
 
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        return sendResponse(res, 404, { message: "Comment not found" });
+        return sendResponse(res, 404, { message: 'Comment not found' });
       }
 
       if (comment.user.toString() !== userId) {
         return sendResponse(res, 403, {
-          message: "You are not the owner of this comment",
+          message: 'You are not the owner of this comment',
         });
       }
 
@@ -56,11 +56,11 @@ class CommentController {
       await comment.save();
 
       return sendResponse(res, 200, {
-        message: "Comment updated successfully",
+        message: 'Comment updated successfully',
         data: comment,
       });
     } catch (error) {
-      return sendResponse(res, 500, { message: "Error updating comment" });
+      return sendResponse(res, 500, { message: 'Error updating comment' });
     }
   }
 
@@ -72,12 +72,12 @@ class CommentController {
 
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        return sendResponse(res, 404, { message: "Comment not found" });
+        return sendResponse(res, 404, { message: 'Comment not found' });
       }
 
       if (comment.user.toString() !== userId) {
         return sendResponse(res, 403, {
-          message: "You are not the owner of this comment",
+          message: 'You are not the owner of this comment',
         });
       }
 
@@ -90,10 +90,10 @@ class CommentController {
       });
 
       return sendResponse(res, 200, {
-        message: "Comment deleted successfully",
+        message: 'Comment deleted successfully',
       });
     } catch (error) {
-      return sendResponse(res, 500, { message: "Error deleting comment" });
+      return sendResponse(res, 500, { message: 'Error deleting comment' });
     }
   }
   // Добавление лайка к комментариям
@@ -104,7 +104,7 @@ class CommentController {
 
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        return sendResponse(res, 404, { message: "Comment not found" });
+        return sendResponse(res, 404, { message: 'Comment not found' });
       }
 
       const userObjectId = new Types.ObjectId(userId);
@@ -118,7 +118,7 @@ class CommentController {
         comment.likesCount -= 1;
         await comment.save();
         return sendResponse(res, 200, {
-          message: "Comment unliked",
+          message: 'Comment unliked',
           data: comment,
         });
       } else {
@@ -127,12 +127,12 @@ class CommentController {
         comment.likesCount += 1;
         await comment.save();
         return sendResponse(res, 200, {
-          message: "Comment liked",
+          message: 'Comment liked',
           data: comment,
         });
       }
     } catch (error) {
-      return sendResponse(res, 500, { message: "Error toggling like" });
+      return sendResponse(res, 500, { message: 'Error toggling like' });
     }
   }
 
@@ -145,7 +145,7 @@ class CommentController {
 
       const parentComment = await Comment.findById(commentId);
       if (!parentComment) {
-        return sendResponse(res, 404, { message: "Parent comment not found" });
+        return sendResponse(res, 404, { message: 'Parent comment not found' });
       }
 
       const reply = new Comment({
@@ -165,11 +165,11 @@ class CommentController {
       await parentComment.save();
 
       return sendResponse(res, 200, {
-        message: "Reply added successfully",
+        message: 'Reply added successfully',
         data: reply,
       });
     } catch (error) {
-      return sendResponse(res, 500, { message: "Error adding reply" });
+      return sendResponse(res, 500, { message: 'Error adding reply' });
     }
   }
 }

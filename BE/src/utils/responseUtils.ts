@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Response } from 'express';
 interface IResponseData<T> {
   message: string;
   data?: T;
@@ -13,6 +13,6 @@ export const sendResponse = <T>(
   res.status(statusCode).json({
     message,
     ...(data && { data }),
-    ...(token && { token }),
+    ...(token && { token }), 
   });
 };

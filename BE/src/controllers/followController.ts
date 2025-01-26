@@ -1,28 +1,29 @@
-import { Request, Response } from "express";
-import UserProfile from "../models/UserProfile";
-import User from "../models/User";
-import { Types } from "mongoose";
-import { sendResponse } from "../utils/responseUtils";
-import { IUser } from "../models/User";
-import { IUserProfile } from "../models/UserProfile";
+import { Request, Response } from 'express';
+import UserProfile from '../models/UserProfile';
+import User from '../models/User';
+import { Types } from 'mongoose';
+import { sendResponse } from '../utils/responseUtils';
+import { IUser } from '../models/User';
+import { IUserProfile } from '../models/UserProfile';
 
 class FollowController {
+
   public async toggleFollow(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
-        return sendResponse(res, 401, { message: "Unauthorized" });
+        return sendResponse(res, 401, { message: 'Unauthorized' });
       }
 
       const { id: userId } = req.user;
       const { username } = req.params;
 
       if (!Types.ObjectId.isValid(userId)) {
-        return sendResponse(res, 400, { message: "Invalid user ID" });
+        return sendResponse(res, 400, { message: 'Invalid user ID' });
       }
 
       const targetUser: IUser | null = await User.findOne({ username }).exec();
       if (!targetUser) {
-        return sendResponse(res, 404, { message: "Target user not found" });
+        return sendResponse(res, 404, { message: 'Target user not found' });
       }
 
       const currentUserProfile: IUserProfile | null = await UserProfile.findOne(
@@ -33,7 +34,7 @@ class FollowController {
       }).exec();
 
       if (!currentUserProfile || !targetUserProfile) {
-        return sendResponse(res, 404, { message: "User profile not found" });
+        return sendResponse(res, 404, { message: 'User profile not found' });
       }
 
       const targetUserId: Types.ObjectId = targetUser._id as Types.ObjectId; // id пользователя, на которого подписываемся
@@ -63,14 +64,14 @@ class FollowController {
 
       return sendResponse(res, 200, {
         message: isFollowing
-          ? "Unfollowed successfully"
-          : "Followed successfully",
+          ? 'Unfollowed successfully'
+          : 'Followed successfully',
       });
     } catch (error) {
-      console.error("Error in toggleFollow:", error);
+      console.error('Error in toggleFollow:', error);
       return sendResponse(res, 500, {
         message:
-          error instanceof Error ? error.message : "Something went wrong",
+          error instanceof Error ? error.message : 'Something went wrong',
       });
     }
   }

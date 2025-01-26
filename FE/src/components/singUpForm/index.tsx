@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/input";
 import Button from "../../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import inStackLogo from "../../assets/icons/logo-ichgram.svg";
+// import inStackLogo from '../../assets/icons/InStack.svg';
 import axios from "axios";
 interface SignUpFormData {
   email: string;
@@ -22,7 +22,7 @@ const SignUpForm = () => {
   const onSubmit = async (data: SignUpFormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3333/api/auth/register",
+        `${import.meta.env.VITE_HOST_NAME}/api/auth/register`,
         data
       ); // Замените на ваш реальный URL для регистрации
       if (response.status === 201) {
@@ -40,7 +40,7 @@ const SignUpForm = () => {
 
   return (
     <div className="w-[350px] bg-white border border-gray-300 flex flex-col items-center p-6">
-      <img src={inStackLogo} alt="Logo" className="w-48 mb-4" />
+      <img src="{}" alt="Logo" className="w-48 mb-4" />
 
       <h3 className="mb-4 text-lg text-center">
         Sign up to see photos and videos from your friends.
@@ -115,7 +115,7 @@ const SignUpForm = () => {
           {...register("password", {
             required: "Password is required",
             minLength: {
-              value: 6,
+              value: 8,
               message: "Password must be at least 6 characters",
             },
           })}

@@ -1,18 +1,23 @@
 import mongoose from "mongoose";
+import 'dotenv/config'
 const uri = process.env.MONGO_URI;
 const connectDB = async (): Promise<void> => {
   try {
-    console.log("hallo", uri);
-    await mongoose.connect(uri || "mongodb://mongodb:27017", {
-      user: process.env.MONGO_INITDB_ROOT_USERNAME,
-      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
-      dbName: process.env.MONGO_INITDB_DATABASE,
+    await mongoose.connect(uri || '', {
+      user: process.env.DB_USER || 'root',
+      pass: process.env.DB_PASS || '666777lyly',
+      dbName: process.env.DB_NAME || 'instack',
     });
-    console.log("Connected to Mongo DB");
+    console.log('Connected to Mongo DB');
   } catch (error) {
-    console.error("Error connecting to database: ", {
+    console.error('Error connectiong to database: ', {
       error: (error as Error).message,
     });
   }
-};
+}
 export default connectDB;
+
+// {
+//       user: process.env.DB_USER || 'root',
+//       pass: process.env.DB_PASS || 'root',
+//     }

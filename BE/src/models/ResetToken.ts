@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IResetToken extends Document {
   email: string;
@@ -12,5 +12,5 @@ const resetTokenSchema = new Schema<IResetToken>({
   expiresAt: { type: Date, required: true },
 });
 
-const ResetToken = model<IResetToken>("ResetToken", resetTokenSchema);
+const ResetToken = model<IResetToken>('ResetToken', resetTokenSchema);
 export default ResetToken;

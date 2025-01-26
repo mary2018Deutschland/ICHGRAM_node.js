@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IPost extends Document {
   user: Types.ObjectId;
@@ -11,23 +11,27 @@ export interface IPost extends Document {
   commentsCount: number;
   reposts: Types.ObjectId[];
   repostsCount: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const postSchema = new Schema<IPost>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
     imageUrls: [{ type: String }],
     videoUrl: { type: String },
     likesCount: { type: Number, default: 0 },
-    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     commentsCount: { type: Number, default: 0 },
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     repostsCount: { type: Number, default: 0 },
-    reposts: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    reposts: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    createdAt: { type: Date, default: Date.now }, // Явное указание createdAt
+    updatedAt: { type: Date, default: Date.now }, // Явное указание updatedAt
   },
-  { timestamps: true }
+  { timestamps: true } // Опция timestamps все равно остается, чтобы Mongoose автоматически обновлял эти поля.
 );
 
-const Post = model<IPost>("Post", postSchema);
+const Post = model<IPost>('Post', postSchema);
 export default Post;
