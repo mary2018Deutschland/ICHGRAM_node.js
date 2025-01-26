@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSwipeable } from 'react-swipeable';
-import like from '../../assets/icons/like.svg';
-import likedFot from '../../assets/icons/liked.svg';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useSwipeable } from "react-swipeable";
+import like from "../../assets/icons/like.svg";
+import likedFot from "../../assets/icons/liked.svg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface MediaSliderProps {
   media: string[];
@@ -36,7 +36,6 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    // Инициализируем состояние лайков при монтировании или изменении props
     setLikesCount(likecount);
     setLiked(likes.includes(userId));
   }, [likecount, likes, userId]);
@@ -47,6 +46,10 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + media.length) % media.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
   };
 
   const swipeHandlers = useSwipeable({
@@ -62,25 +65,23 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
       const updatedPost = response.data.data;
       setLikesCount(updatedPost.likesCount);
-      console.log(liked);
       setLiked(updatedPost.likes.includes(userId));
-      console.log(userId);
     } catch (error) {
-      console.error('Ошибка при изменении лайка:', error);
+      console.error("Error to changing like:", error);
     }
   };
 
   const getMediaType = (url: string) => {
-    if (url.endsWith('.mp4') || url.endsWith('.mov')) {
-      return 'video';
+    if (url.endsWith(".mp4") || url.endsWith(".mov")) {
+      return "video";
     }
-    return 'image';
+    return "image";
   };
 
   const onClickToUserProf = () => {
@@ -99,7 +100,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
           className="absolute top-0 left-0 right-0 flex items-center p-4 bg-white rounded-t-lg cursor-pointer"
         >
           <img
-            src={avatar || ''}
+            src={avatar || ""}
             alt="Author Avatar"
             className="object-cover w-10 h-10 rounded-full"
           />
@@ -117,7 +118,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
           onClick={onClick}
         >
           {media[currentIndex] &&
-          getMediaType(media[currentIndex]) === 'image' ? (
+          getMediaType(media[currentIndex]) === "image" ? (
             <img
               src={media[currentIndex]}
               alt="Media"
@@ -135,6 +136,19 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
             </video>
           )}
         </div>
+
+        {/* Добавляем дотсы */}
+        <div className="absolute flex justify-center w-full pr-5 space-x-2 bottom-5">
+          {media.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full ${
+                index === currentIndex ? "bg-blue-500" : "bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="p-4 bg-white rounded-b-lg">
@@ -145,7 +159,6 @@ const MediaSlider: React.FC<MediaSliderProps> = ({
           <span>{likesCount} likes</span>
         </div>
         <div className="h-6">
-          {' '}
           <p className="mt-2 text-sm">{truncateDescription(description, 20)}</p>
         </div>
       </div>

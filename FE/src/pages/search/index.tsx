@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   _id: string;
@@ -35,7 +35,7 @@ const Search = () => {
         setUsers([]);
       }
     } catch (err) {
-      setError('Failed to search users');
+      setError("Failed to search users");
     }
   };
 
@@ -59,7 +59,7 @@ const Search = () => {
               type="text"
               className="w-full px-4 py-2 mt-1 text-gray-700 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Type a nickname"
-              {...register('username', {
+              {...register("username", {
                 onChange: (e) => handleSearch(e.target.value),
               })}
             />
